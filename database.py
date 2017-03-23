@@ -46,6 +46,10 @@ class Items(Base):
     description = Column(
         String(250))
 
+    category_id = Column(
+        Integer, ForeignKey('category.id'))
+
+    category = relationship(Category)
 
 class Users(Base):
     __tablename__ = 'users'

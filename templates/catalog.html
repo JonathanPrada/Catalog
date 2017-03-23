@@ -7,10 +7,8 @@
 <body>
 {% for category in categories %}
 <br>
-{{ category.id }} : {{ category.name }}
+<a href="{{ url_for('items', category_id = category.id )}}">{{ category.name }}</a>
 <br>
-<a href="{{ url_for('items', category_id = category.id )}}">{{ category.name }}
-<br></a>
 
 
 {{ category.description }}

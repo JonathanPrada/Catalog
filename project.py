@@ -48,7 +48,8 @@ def additem():
     if request.method == 'POST':
         newitem = Items(
             name=request.form['name'],
-            description=request.form['description'])
+            description=request.form['description'],
+            category=request.form['cat'])
         session.add(newitem)
         session.commit()
         return redirect(url_for('catalog'))
