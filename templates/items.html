@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for item in items %}
-{{ item.name }}
-{{ item.id }}
-{{ item.description }}
-{% endfor %}
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Items{% endblock %}
+
+{% block content %}
+        <div class="col-md-6">
+            <br>
+            <h3>{{categoryselected.name}}</h3>
+            {% if items %}
+                {% for item in items %}
+                <br>
+                <a href="{{ url_for('item', id = item.id)}}">{{ item.name }}</a>
+                <br>
+                {% endfor %}
+            {% else %}
+                <p>There are currently no items added to this category.</p>
+            {% endif %}
+        </div>
+{% endblock %}

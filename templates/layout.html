@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Catalog System</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active pull-right"><a href="#">Catalog</a></li>
+                <li role="presentation" class="pull-right"><a href="{{ url_for('additem')}}">Add an item</a></li>
+                {% if logged %}
+                <li role="presentation" class="pull-right"><a href="{{ url_for('fbdisconnect')}}">Logout</a></li>
+                {% else %}
+                <li role="presentation" class="pull-right"><a href="{{ url_for('showLogin')}}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+                {% for category in categories %}
+                <br>
+                <a href="{{ url_for('items', category_id = category.id )}}">{{ category.name }}</a>
+                <br>
+                {{ category.description }}
+                {% endfor %}
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

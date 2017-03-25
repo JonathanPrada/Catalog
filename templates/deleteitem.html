@@ -5,6 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+{% if error %}
+
+{{ error }}
+
+{% else %}
+
+<form action="#" method="post">
+    <label>Delete Item</label>
+    <p>Are you sure you want to delete?</p>
+    <input type="submit" value="Delete">
+</form>
+
+{% endif %}
 
 </body>
 </html>

@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-we are here in item
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Catalog{% endblock %}
+
+{% block content %}
+    <div class="col-md-6">
+        <br>
+        <h3>{{ item.name }}</h3>
+        <br>
+        <p>{{ item.description }}</p>
+        <br>
+        <a href="{{url_for('edititem', edit_item=item.name)}}">Edit </a>
+        | <a href="{{url_for('deleteitem', delete_item=item.name)}}"> Delete</a>
+    </div>
+{% endblock %}}
