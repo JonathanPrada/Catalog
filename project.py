@@ -46,22 +46,25 @@ def fbconnect():
     access_token = request.data
     print "access token received %s " % access_token
 
+    # Exchange client token for long-lived server-side token
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
-    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
-        app_id, app_secret, access_token)
+    url = ('https://graph.facebook.com/v2.8/oauth/access_token?'
+           'grant_type=fb_exchange_token&client_id=%s&client_secret=%s'
+           '&fb_exchange_token=%s') % (app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.4/me"
     # strip expire tag from access token
-    token = result.split("&")[0]
+    #token = result.split("&")[0]
+    data = json.loads(result)
+    token = 'access_token=' + data['access_token']
 
-
-    url = 'https://graph.facebook.com/v2.4/me?%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.8/me?%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print "url sent for API access:%s"% url
@@ -210,9 +213,9 @@ def additem():
 
 
 # edit item page
-@app.route('/catalog/<string:edit_item>/edit', methods=['GET', 'POST'])
-def edititem(edit_item):
-    itemtoedit = session.query(Items).filter_by(name=edit_item).one()
+@app.route('/catalog/<int:item_id>/edit', methods=['GET', 'POST'])
+def edititem(item_id):
+    itemtoedit = session.query(Items).filter_by(id=item_id).one()
     if 'username' not in login_session:
         return redirect(url_for('catalog'))
     else:
@@ -233,9 +236,9 @@ def edititem(edit_item):
             return render_template('edititem.html', item=itemtoedit, error=error)
 
 # delete item page
-@app.route('/catalog/<string:delete_item>/delete', methods=['GET', 'POST'])
-def deleteitem(delete_item):
-    itemtodelete = session.query(Items).filter_by(name=delete_item).one()
+@app.route('/catalog/<int:item_id>/delete', methods=['GET', 'POST'])
+def deleteitem(item_id):
+    itemtodelete = session.query(Items).filter_by(id=item_id).one()
     if 'username' not in login_session:
         return redirect(url_for('catalog'))
     else:

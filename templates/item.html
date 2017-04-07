@@ -8,7 +8,7 @@
         <br>
         <p>{{ item.description }}</p>
         <br>
-        <a href="{{url_for('edititem', edit_item=item.name)}}">Edit </a>
-        | <a href="{{url_for('deleteitem', delete_item=item.name)}}"> Delete</a>
+        <a href="{{url_for('edititem', item_id=item.id)}}">Edit </a>
+        | <a href="{{url_for('deleteitem', item_id=item.id )}}"> Delete</a>
     </div>
 {% endblock %}}

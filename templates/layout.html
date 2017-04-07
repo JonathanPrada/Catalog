@@ -6,25 +6,60 @@
     <title>{% block title %}{% endblock %} - Catalog System</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% endblock %}
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active pull-right"><a href="#">Catalog</a></li>
-                <li role="presentation" class="pull-right"><a href="{{ url_for('additem')}}">Add an item</a></li>
-                {% if logged %}
-                <li role="presentation" class="pull-right"><a href="{{ url_for('fbdisconnect')}}">Logout</a></li>
-                {% else %}
-                <li role="presentation" class="pull-right"><a href="{{ url_for('showLogin')}}">Login</a></li>
-                {% endif %}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Burger Menu -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('catalog')}}">Catalog</a>
+        </div>
+        <!-- Individual items that will be shown if burger menu on -->
+        <div class="collapse navbar-collapse" id="#topNavBar">
+
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="{{ url_for('catalog')}}">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;
+                        Items
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{{ url_for('additem')}}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+                        Add Item
+                    </a>
+                </li>
+                <li class="">
+                    {% if logged %}
+                    <a href="{{ url_for('fbdisconnect')}}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                        Log out
+                    </a>
+                    {% else %}
+                     <a href="{{ url_for('showLogin')}}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                        Login
+                    </a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>
+</nav>
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-2" id="categories">
                 {% for category in categories %}
                 <br>
                 <a href="{{ url_for('items', category_id = category.id )}}">{{ category.name }}</a>
@@ -36,5 +71,6 @@
         {% endblock %}
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </body>
 </html>
