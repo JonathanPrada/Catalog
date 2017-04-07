@@ -1,5 +1,5 @@
 # Catalog
-A project done in Bootstrap, Python, Flask, JavaScript.
+A project done in Bootstrap, Python, Flask and JavaScript.
 
 Here we utilise jsonify, GET/POST, Routing, SqlAlchemy, Templating, Dynamic URLs & Facebook third party Authentication.
 
